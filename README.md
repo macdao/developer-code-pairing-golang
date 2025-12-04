@@ -39,28 +39,30 @@ order-service/
 
 ## 快速开始
 
-### 1. 安装依赖
-
 ```bash
-go mod download
-```
+# 查看所有可用命令
+make help
 
-### 2. 运行服务
+# 安装依赖
+make deps
 
-```bash
-go run ./cmd/server
-```
+# 运行服务（启动在 http://localhost:8080）
+make run
 
-服务启动在 `http://localhost:8080`
+# 运行测试
+make test
 
-### 3. 运行测试
+# 查看测试覆盖率
+make test-coverage
 
-```bash
-# 运行所有测试
-go test ./...
+# 构建二进制文件
+make build
 
-# 查看覆盖率
-go test ./... -cover
+# 生成测试 Token
+make generate-token USER_ID=1001
+
+# 完整构建流程（清理、依赖、格式化、检查、测试、构建）
+make all
 ```
 
 ## API 使用
@@ -68,7 +70,7 @@ go test ./... -cover
 ### 1. 生成测试 Token
 
 ```bash
-go run tools/generate_token.go 1001
+make generate-token USER_ID=1001
 ```
 
 ### 2. 创建订单
@@ -100,21 +102,24 @@ curl -X POST http://localhost:8080/api/v1/orders \
 
 ```bash
 # 启动服务
-go run ./cmd/server
+make run
 
 # 运行测试脚本（另一个终端）
 ./test_api.sh
 ```
 
-## 测试
+## Makefile 命令说明
 
-```bash
-# 运行所有测试
-go test ./...
-
-# 查看覆盖率
-go test ./... -cover
-
-# 详细输出
-go test ./... -v
-```
+| 命令 | 说明 |
+|------|------|
+| `make help` | 显示所有可用命令 |
+| `make deps` | 下载项目依赖 |
+| `make build` | 编译项目到 bin/ 目录 |
+| `make run` | 运行服务 |
+| `make test` | 运行所有测试 |
+| `make test-coverage` | 生成测试覆盖率报告 |
+| `make fmt` | 格式化代码 |
+| `make vet` | 运行 go vet 检查 |
+| `make clean` | 清理构建产物 |
+| `make generate-token` | 生成测试 JWT Token |
+| `make all` | 执行完整构建流程 |
